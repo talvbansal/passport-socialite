@@ -1,6 +1,6 @@
 ## Laravel Passport Socialite Driver
-[![Packagist License](https://poser.pugx.org/matt-allan/laravel-code-style/license.png)](http://choosealicense.com/licenses/mit/)
-[![Latest Stable Version](https://poser.pugx.org/matt-allan/laravel-code-style/version.png)](https://packagist.org/packages/matt-allan/passport-socialite)
+[![Packagist License](https://poser.pugx.org/matt-allan/passport-socialite/license.png)](http://choosealicense.com/licenses/mit/)
+[![Latest Stable Version](https://poser.pugx.org/matt-allan/passport-socialite/version.png)](https://packagist.org/packages/matt-allan/passport-socialite)
 [![Build Status](https://travis-ci.com/matt-allan/passport-socialite.svg?branch=master)](https://travis-ci.com/matt-allan/passport-socialite)
 
 A [Laravel Socialite](https://laravel.com/docs/5.8/socialite) driver for authenticating with [Laravel Passport](https://laravel.com/docs/5.8/passport) OAuth servers.
@@ -22,7 +22,7 @@ Before using this driver, you will need to add credentials for the Passport serv
     'client_id' => env('PASSPORT_CLIENT_ID'),
     'client_secret' => env('PASSPORT_CLIENT_SECRET'),
     'url' => env('PASSPORT_URL'),
-    'redirect' => 'http://your-callback-url',
+    'redirect' => env('PASSPORT_REDIRECT'),
 ],
 ``` 
 
@@ -66,6 +66,12 @@ class LoginController extends Controller
 ```
 
 The current user's details will be retrieved from the default `api/user` route.
+
+In addition to the standard Socialite methods a `refresh` method is available to easily refresh expired tokens. The `refresh` method accepts a refresh token and returns an updated `User` with new access and refresh tokens if the token is refreshed successfully.
+
+```php
+$user = Socialite::driver('passport')->refresh($refreshToken);
+```
 
 ## Change log
 
